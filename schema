@@ -1,0 +1,17 @@
+First run:
+	Step 1:
+		Allocate TINY and SMALL with mmap()
+							v--------------------
+		[...............................................] TINY	    |
+		[...............................................] SMALL	    |
+					^------------------------------	    |
+	Step 2:							      |	    |
+		Check asked size				      |	    |
+								      |	    |
+		if size goes in TINY:				      |	    |
+			return the first non-allocated TINY pointer ---------
+		if size goes in SMALL:				      |
+			return the first non-allocated SMALL pointer---
+		if size is too big:
+			return address allocated by mmap()
+
