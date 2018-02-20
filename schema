@@ -1,17 +1,24 @@
 First run:
 	Step 1:
+		In a linked list (in case of TINY and SMALL overflow)
 		Allocate TINY and SMALL with mmap()
 							v--------------------
 		[...............................................] TINY	    |
 		[...............................................] SMALL	    |
-					^------------------------------	    |
-	Step 2:							      |	    |
-		Check asked size				      |	    |
-								      |	    |
-		if size goes in TINY:				      |	    |
+					^-------------------------------    |
+	Step 2:							       |    |
+		Check asked size				       |    |
+								       |    |
+		if size goes in TINY:				       |    |
 			return the first non-allocated TINY pointer ---------
-		if size goes in SMALL:				      |
-			return the first non-allocated SMALL pointer---
+		if size goes in SMALL:				       |
+			return the first non-allocated SMALL pointer ---
 		if size is too big:
 			return address allocated by mmap()
-
+	Step 3:
+		Store allocated chunk in a linked list node:
+			*next
+			*prev
+			int size
+			int free
+			*data_ptr
