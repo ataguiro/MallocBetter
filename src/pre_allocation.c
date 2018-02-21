@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 15:15:43 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/21 16:10:47 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/21 17:09:26 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void	pre_allocation(void)
 	g_small->zone = mmap(AL(SMALL));
 	g_tiny->next = NULL;
 	g_small->next = NULL;
+	g_tiny->cursor = 0;
+	g_small->cursor = 0;
 }

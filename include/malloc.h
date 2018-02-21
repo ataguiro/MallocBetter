@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/21 15:59:48 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/21 16:51:05 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@
 
 typedef struct			s_tiny
 {
+	uint64_t			cursor;
 	void				*zone;
 	struct s_tiny		*next;
 }						t_tiny;
 
 typedef struct			s_small
 {
+	uint64_t			cursor;
 	void				*zone;
 	struct s_small		*next;
 }						t_small;
