@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/21 15:05:40 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/21 15:59:48 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,22 @@ typedef struct			s_small
 /*
 **	s_chunks is a double linked list containing information
 **	on all malloc'd chunks
+**	~ 49 bytes == 392 bits
 */
 
 typedef struct			s_chunks
 {
 	struct s_chunks		*prev;
 	struct s_chunks		*next;
-	t_tiny				*tiny_head;
-	t_small				*small_head;
 	uint64_t			size;
 	uint8_t				free;
 	void				*data;
 }						t_chunks;
+
+extern t_tiny			*g_tiny;
+extern t_small			*g_small;
+extern t_chunks			g_chunks;
+
+void					pre_allocation(void);
 
 #endif
