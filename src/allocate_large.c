@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_allocation.c                                   :+:      :+:    :+:   */
+/*   allocate_large.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/21 15:15:43 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/22 16:32:57 by ataguiro         ###   ########.fr       */
+/*   Created: 2018/02/22 14:13:08 by ataguiro          #+#    #+#             */
+/*   Updated: 2018/02/22 14:14:36 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-t_tiny	*g_tiny;
-t_small	*g_small;
-
-/*
-**	Allocates TINY and SMALL zones for futures malloc calls
-*/
-
-void	pre_allocation(void)
+void	*allocate_large(size_t size)
 {
-	g_tiny = (t_tiny *)mmap(AL(sizeof(t_tiny)));
-	g_small = (t_small *)mmap(AL(sizeof(t_small)));
-	g_chunks = NULL;
-	g_tiny->zone = mmap(AL(TINY));
-	g_small->zone = mmap(AL(SMALL));
-	g_tiny->next = NULL;
-	g_small->next = NULL;
-	g_tiny->cursor = 0;
-	g_small->cursor = 0;
+	void	*ret;
+
+	ret = mmap(AL(size));
+	return (ret);
 }

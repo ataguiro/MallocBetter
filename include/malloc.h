@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/21 16:51:05 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:08:19 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "libft.h"
 
 # define PAGE_SIZE		getpagesize()
+# define ALIGN_COEFF	16
+# define ALIGN(x) (x + ALIGN_COEFF) - (x % ALIGN_COEFF)
 
 /*
 **	mmap() call parameters
@@ -82,7 +84,6 @@ typedef struct			s_small
 
 typedef struct			s_chunks
 {
-	struct s_chunks		*prev;
 	struct s_chunks		*next;
 	uint64_t			size;
 	uint8_t				free;
@@ -91,7 +92,7 @@ typedef struct			s_chunks
 
 extern t_tiny			*g_tiny;
 extern t_small			*g_small;
-extern t_chunks			g_chunks;
+extern t_chunks			*g_chunks;
 
 void					pre_allocation(void);
 
