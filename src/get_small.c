@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 16:12:29 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/22 16:38:33 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/22 16:43:43 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		*search_free_slot(size_t size)
 void			*get_small(size_t size)
 {
 	void	*ret;
-	t_tiny	*ptr;
+	t_small	*ptr;
 
 	size = ALIGN(size);
 	ptr = g_small;

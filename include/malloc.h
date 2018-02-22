@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/22 14:08:19 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/22 16:43:11 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # include "libft.h"
 
+# define COEFF 100
 # define PAGE_SIZE		getpagesize()
 # define ALIGN_COEFF	16
 # define ALIGN(x) (x + ALIGN_COEFF) - (x % ALIGN_COEFF)
@@ -95,5 +96,8 @@ extern t_small			*g_small;
 extern t_chunks			*g_chunks;
 
 void					pre_allocation(void);
+void					*get_tiny(size_t);
+void					*get_small(size_t);
+void					*allocate_large(size_t);
 
 #endif
