@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/22 17:36:19 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/24 11:11:31 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,7 @@ void		*ft_malloc(size_t size)
 		ret = allocate_large(size);
 	if (ret)
 		add_chunk(ALIGN(size), ret);
-	t_chunks *ptr = g_chunks;
 
-	while (ptr)
-	{
-		//printf("next: %p\nsize: %llu\nfree: %hhu\ndata: %p\n", ptr->next, ptr->size, ptr->free, ptr->data);
-		ptr = ptr->next;
-	}
 	return (ret);
 }
 
@@ -94,5 +88,13 @@ int             main(void)
 	printf("p: %s\n", p);
 	memset(p1, 'B', 31);
 	printf("p (after fill): %s\n", p);
+	char *s;
+	for (int i = 0; i < 5000; i++)
+	{
+		s = ft_malloc(11);
+		s[0] = 'A';
+		s[1] = 0;
+		//printf("%s\n", s);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/22 16:43:11 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/24 11:21:33 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define COEFF 100
 # define PAGE_SIZE		getpagesize()
 # define ALIGN_COEFF	16
-# define ALIGN(x) (x + ALIGN_COEFF) - (x % ALIGN_COEFF)
+# define ALIGN(x) (x % 16) ? (x + ALIGN_COEFF) - (x % ALIGN_COEFF) : x
+# define ABS(x) (x < 0) ? -x : x
 
 /*
 **	mmap() call parameters
