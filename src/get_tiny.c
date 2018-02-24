@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 16:12:29 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/24 11:37:49 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/24 11:47:09 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,22 @@ static void		*search_free_slot(size_t size)
 	size_t		*min;
 
 	ptr = g_chunks;
+	prev = NULL;
+	ret = NULL;
+	min = TINY;
 	while (ptr)
 	{
-		if (ptr->free && (size <= ptr->size))
+		if (ptr->free && (size <= ptr->size) && ((ptr->size - size) < min))
 		{
+			prev ? prev->free = 1 : 0;
 			prev = ptr;
 			ptr->free = 0;
-			ret = ptr->data
+			ret = ptr->data;
 			min = ABS(ptr->size - size);
 		}
 		ptr = ptr->next;
 	}
-	return (NULL);
+	return (ret);
 }
 
 static void		append_zone(void)
