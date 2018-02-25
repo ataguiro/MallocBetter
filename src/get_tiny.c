@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 16:12:29 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/25 15:46:07 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 17:45:33 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ void			*get_tiny(size_t size)
 
 	ptr = g_tiny;
 	ret = search_free_slot(size);
+	if (ret)
+	{
+t_chunks *ptr;
+
+	ptr = g_chunks;
+	while (ptr)
+	{
+		printf("========================\nsize: \033[1m%zu\033[0m\nfree: %s\ndata: %p\n========================\n||||||||||||||||||||||||\n", ptr->size, ptr->free ? "\033[1;32mYES\033[0m" : "\033[1;31mNO\033[0m", ptr->data);
+		ptr = ptr->next;
+	}
+	printf("\n\n\n");
+	}
 	if (!ret)
 	{
 		while (ptr)

@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 14:03:58 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/25 16:59:19 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 17:53:16 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,23 @@ static void	pop_freed(t_chunks *ptr)
 	t_chunks *tmp;
 
 	tmp = g_chunks;
+	if (!tmp->next)
+	{
+		munmap(ptr, sizeof(ptr));
+		g_chunks = NULL;
+		return ;
+	}
+	else if (tmp == ptr)
+	{
+		g_chunks = ptr->next;
+		munmap(ptr, sizeof(ptr));
+		return ;
+	}
 	while (tmp->next)
 	{
 		if (tmp->next == ptr)
 		{
 			tmp->next = ptr->next;
-			ptr->next = NULL;
 			munmap(ptr, sizeof(t_chunks));
 			break ;
 		}
@@ -32,7 +43,7 @@ static void	pop_freed(t_chunks *ptr)
 	}
 }
 
-static void	check_tiny(t_tiny *ptr)
+static int	check_tiny(t_tiny *ptr)
 {
 	t_chunks	*tmp;
 	t_tiny		*tiny_node;
@@ -54,22 +65,31 @@ static void	check_tiny(t_tiny *ptr)
 		munmap(ptr->zone, ptr->cursor);
 		if (!tiny_node->next)
 		{
-			
+			munmap(g_tiny, sizeof(g_tiny));
+			g_tiny = NULL;
 		}
-		while (tiny_node->next)
+		else if (tiny_node == ptr)
 		{
-			if (tiny_node == ptr)
-			{
-				tiny_node->next = ptr->next;
-				munmap(ptr, sizeof(t_tiny));
-				break ;
-			}
-			tiny_node = tiny_node->next;
+			g_tiny = ptr->next;
+			munmap(ptr, sizeof(ptr));
 		}
+		else
+			while (tiny_node->next)
+			{
+				if (tiny_node->next == ptr)
+				{
+					tiny_node->next = ptr->next;
+					munmap(ptr, sizeof(t_tiny));
+					break ;
+				}
+				tiny_node = tiny_node->next;
+			}
+		return (1);
 	}
+	return (0);
 }
 
-static void	check_small(t_small *ptr)
+static int	check_small(t_small *ptr)
 {
 	t_chunks	*tmp;
 	t_small		*small_node;
@@ -88,9 +108,19 @@ static void	check_small(t_small *ptr)
 	if (total_size == ptr->cursor)
 	{
 		munmap(ptr->zone, ptr->cursor);
-		while (small_node->next)
+		if (!small_node->next)
 		{
-			if (small_node == ptr)
+			munmap(g_small, sizeof(g_small));
+			g_small = NULL;
+		}
+		else if (small_node == ptr)
+		{
+			g_small = small_node->next;
+			munmap(ptr, sizeof(ptr));
+		}
+		else while (small_node->next)
+		{
+			if (small_node->next == ptr)
 			{
 				small_node->next = ptr->next;
 				munmap(ptr, sizeof(t_small));
@@ -98,7 +128,9 @@ static void	check_small(t_small *ptr)
 			}
 			small_node = small_node->next;
 		}
+		return (1);
 	}
+	return (0);
 }
 
 static void	return_pages(void)
@@ -111,13 +143,15 @@ static void	return_pages(void)
 	while (p1)
 	{
 		if (p1->cursor == TINY)
-			check_tiny(p1);
+			if (check_tiny(p1))
+				break ;
 		p1 = p1->next;
 	}
 	while (p2)
 	{
 		if (p2->cursor == SMALL)
-			check_small(p2);
+			if (check_small(p2))
+				break ;
 		p2 = p2->next;
 	}
 }

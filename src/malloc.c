@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/25 16:47:49 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 17:42:43 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ static void	add_chunk(size_t size, void *ret)
 	}
 }
 
+static void	presets(void)
+{
+	g_chunks = NULL;
+	g_tiny = NULL;
+	g_small = NULL;
+}
+
 void		*ft_malloc(size_t size)
 {
 	void			*ret;
@@ -51,8 +58,9 @@ void		*ft_malloc(size_t size)
 	if (flag)
 	{
 		flag = 0;
-		pre_allocation();
+		presets();
 	}
+	pre_allocation();
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)
@@ -61,8 +69,8 @@ void		*ft_malloc(size_t size)
 		ret = allocate_large(size);
 	if (ret)
 		add_chunk(ALIGN(size), ret);
-
-/*	t_chunks *ptr;
+/*
+	t_chunks *ptr;
 
 	ptr = g_chunks;
 	while (ptr)
@@ -88,7 +96,8 @@ int             main(void)
 	{
 		ft_free(p[i]);
 	}
-	
+	char *a = ft_malloc(12);
+	a[0] = 42;
 	t_tiny	*t = g_tiny;
 	while (t)
 	{
