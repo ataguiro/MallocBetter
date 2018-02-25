@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/24 11:11:31 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 16:47:49 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ static void	add_chunk(size_t size, void *ret)
 	t_chunks	*ptr;
 	t_chunks	*new;
 
+	ptr = g_chunks;
+	while (ptr)
+	{
+		if (ret == ptr->data)
+			return ;
+		ptr = ptr->next;
+	}
 	ptr = g_chunks;
 	new = (t_chunks *)mmap(AL(sizeof(t_chunks)));
 	new->next = NULL;
@@ -40,6 +47,7 @@ void		*ft_malloc(size_t size)
 	void			*ret;
 	static uint8_t	flag = 1;
 
+	size = ALIGN(size);
 	if (flag)
 	{
 		flag = 0;
@@ -54,11 +62,39 @@ void		*ft_malloc(size_t size)
 	if (ret)
 		add_chunk(ALIGN(size), ret);
 
+/*	t_chunks *ptr;
+
+	ptr = g_chunks;
+	while (ptr)
+	{
+		printf("========================\nsize: \033[1m%zu\033[0m\nfree: %s\ndata: %p\n========================\n||||||||||||||||||||||||\n", ptr->size, ptr->free ? "\033[1;32mYES\033[0m" : "\033[1;31mNO\033[0m", ptr->data);
+		ptr = ptr->next;
+	}
+	printf("\n\n\n");*/
 	return (ret);
 }
 
 int             main(void)
 {
+	char	*p[4096];
+	for (int i = 0; i < 4096; i++)
+	{
+		p[i] = ft_malloc(16);
+		printf("%llu\n", g_tiny->cursor);
+		if (g_tiny->next)
+		printf("%llu\n", g_tiny->next->cursor);
+	}
+	for (int i = 0; i < 4096; i++)
+	{
+		ft_free(p[i]);
+	}
+	
+	t_tiny	*t = g_tiny;
+	while (t)
+	{
+		printf("Cursor: %llu\n", t->cursor);
+		t = t->next;
+	}
 	/*char    *str, *str1, *str2;
 	for (int i = 0; i < 300; i++)
 		str = ft_malloc(300);
@@ -79,7 +115,7 @@ int             main(void)
 	printf("%s - %s - %s\n", str, str1, str2);
 	printf("%s - %s\n", str, str1);
 	printf("page size : %d\n", getpagesize());
-*/
+
 	char *p, *p1;
 
 	p = ft_malloc(31);
@@ -96,5 +132,11 @@ int             main(void)
 		s[1] = 0;
 		//printf("%s\n", s);
 	}
-	return (0);
+	for (int j = 0; j < 5000; j++)
+	{
+		s = ft_malloc(SMALL_LIMIT);
+		s[0] = 'A';
+		s[1] = 0;
+	}
+	return (0);*/
 }

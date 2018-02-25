@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/24 11:21:33 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 16:10:04 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@
 # include <sys/types.h>
 # include <sys/mman.h>
 
+# include <stdint.h>
 # include <unistd.h>
 # include <fcntl.h>
 
-# include "libft.h"
+//toremove
+# include <stdio.h>
+# include <string.h>
+//toremove
 
-# define COEFF 100
+# define COEFF 200
 # define PAGE_SIZE		getpagesize()
 # define ALIGN_COEFF	16
 # define ALIGN(x) (x % 16) ? (x + ALIGN_COEFF) - (x % ALIGN_COEFF) : x
@@ -45,8 +49,8 @@
 **	the max size allocation that'll fit into those zones.
 */
 
-# define TINY			(size_t) (PAGE_SIZE * 4)
-# define SMALL			(size_t) (PAGE_SIZE * 8)
+# define TINY			(size_t)(PAGE_SIZE * 16)
+# define SMALL			(size_t)(PAGE_SIZE * 128)
 # define TINY_LIMIT		(TINY / COEFF)
 # define SMALL_LIMIT	(SMALL / COEFF)
 
@@ -87,7 +91,7 @@ typedef struct			s_small
 typedef struct			s_chunks
 {
 	struct s_chunks		*next;
-	uint64_t			size;
+	size_t				size;
 	uint8_t				free;
 	void				*data;
 }						t_chunks;
@@ -96,6 +100,7 @@ extern t_tiny			*g_tiny;
 extern t_small			*g_small;
 extern t_chunks			*g_chunks;
 
+void					ft_free(void *);
 void					pre_allocation(void);
 void					*get_tiny(size_t);
 void					*get_small(size_t);
