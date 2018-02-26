@@ -168,16 +168,13 @@ void		ft_free(void *ptr)
 		if (tmp->data == ptr)
 		{
 			if (tmp->size <= SMALL_LIMIT)
-			{
 				tmp->free = 1;
-				break ;
-			}
 			else
 			{
 				munmap(tmp->data, tmp->size);
 				pop_freed(tmp);
-				break ;
 			}
+			break ;
 		}
 		tmp = tmp->next;
 	}
