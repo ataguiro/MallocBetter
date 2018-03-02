@@ -12,11 +12,8 @@
 
 #include "malloc.h"
 
-t_chunks	*g_chunks;
-
 static void	presets(void)
 {
-	g_chunks = NULL;
 	g_tiny = NULL;
 	g_small = NULL;
 }
@@ -39,8 +36,6 @@ void		*ft_malloc(size_t size)
 		ret = get_small(size);
 	else
 		ret = allocate_large(size);
-	if (ret)
-		add_chunk(ALIGN(size), ret);
 /*
 	t_chunks *ptr;
 
@@ -56,26 +51,6 @@ void		*ft_malloc(size_t size)
 
 int             main(void)
 {
-	char	*p[4096];
-	for (int i = 0; i < 4096; i++)
-	{
-		p[i] = ft_malloc(16);
-		printf("%llu\n", g_tiny->cursor);
-		if (g_tiny->next)
-		printf("%llu\n", g_tiny->next->cursor);
-	}
-	for (int i = 0; i < 4096; i++)
-	{
-		ft_free(p[i]);
-	}
-	char *a = ft_malloc(12);
-	a[0] = 42;
-	t_tiny	*t = g_tiny;
-	while (t)
-	{
-		printf("Cursor: %llu\n", t->cursor);
-		t = t->next;
-	}
 	/*char    *str, *str1, *str2;
 	for (int i = 0; i < 300; i++)
 		str = ft_malloc(300);
@@ -96,7 +71,7 @@ int             main(void)
 	printf("%s - %s - %s\n", str, str1, str2);
 	printf("%s - %s\n", str, str1);
 	printf("page size : %d\n", getpagesize());
-
+*/
 	char *p, *p1;
 
 	p = ft_malloc(31);
@@ -104,7 +79,7 @@ int             main(void)
 	memset(p, 'A', 32);
 	printf("p: %s\n", p);
 	memset(p1, 'B', 31);
-	printf("p (after fill): %s\n", p);
+	printf("p (after fill): %s\n", p);/*
 	char *s;
 	for (int i = 0; i < 5000; i++)
 	{

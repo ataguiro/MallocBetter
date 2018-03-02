@@ -23,7 +23,6 @@ OBJDIR	:=	obj/
 INCDIR	:=	include/
 LIBDIR	:=	libft/
 SRC		:=	$(SRCDIR)malloc.c \
-			$(SRCDIR)free.c \
 			$(SRCDIR)pre_allocation.c \
 			$(SRCDIR)get_tiny.c \
 			$(SRCDIR)get_small.c \

@@ -32,6 +32,8 @@
 # define COEFF 200
 # define PAGE_SIZE		getpagesize()
 # define CHS (2 * sizeof(void *) + sizeof(size_t) + sizeof(uint8_t))
+# define ZHS (3 * sizeof(void *) + sizeof(uint64_t))
+
 # define ALIGN(x) (x % 16) ? (x + 16) - (x % 16)  + CHS : x + CHS
 # define ABS(x) (x < 0) ? -x : x
 
@@ -82,25 +84,16 @@ typedef struct			s_chunks
 **	s_tiny and s_small are linked lists storing pre_allocated zones
 */
 
-typedef struct			s_tiny
+typedef struct			s_zone
 {
-	struct s_tiny		*next;
+	struct s_zone		*next;
 	struct s_chunks		*chunks;
 	uint64_t			cursor;
 	void				*zone;
-}						t_tiny;
+}						t_zone;
 
-typedef struct			s_small
-{
-	struct s_small		*next;
-	struct s_chunks		*chunks;
-	uint64_t			cursor;
-	void				*zone;
-}						t_small;
-
-extern t_tiny			*g_tiny;
-extern t_small			*g_small;
-extern t_chunks			*g_chunks;
+extern t_zone			*g_tiny;
+extern t_zone			*g_small;
 
 void					ft_free(void *);
 void					pre_allocation(void);

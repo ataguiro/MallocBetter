@@ -12,8 +12,8 @@
 
 #include "malloc.h"
 
-t_tiny	*g_tiny;
-t_small	*g_small;
+t_zone	*g_tiny;
+t_zone	*g_small;
 
 /*
 **	Allocates TINY and SMALL zones for futures malloc calls
@@ -21,18 +21,25 @@ t_small	*g_small;
 
 void	pre_allocation(void)
 {
+	void	*tiny;
+	void	*small;
+
 	if (!g_tiny)
 	{
-		g_tiny = (t_tiny *)mmap(AL(sizeof(t_tiny)));
-		g_tiny->zone = mmap(AL(TINY));
-		g_tiny->cursor = 0;
+		tiny = mmap(AL(TINY + ZHS));
+		g_tiny = (t_zone *)tiny;
+		g_tiny->zone = tiny + ZHS;
+		g_tiny->cursor = ZHS;
 		g_tiny->next = NULL;
+		g_tiny->chunks = NULL;
 	}
 	if (!g_small)
 	{
-		g_small = (t_small *)mmap(AL(sizeof(t_small)));
-		g_small->zone = mmap(AL(SMALL));
-		g_small->cursor = 0;
+		small = mmap(AL(SMALL + ZHS));
+		g_small = (t_zone *)small;
+		g_small->zone = small + ZHS;
+		g_small->cursor = ZHS;
 		g_small->next = NULL;
+		g_small->chunks = NULL;
 	}
 }
