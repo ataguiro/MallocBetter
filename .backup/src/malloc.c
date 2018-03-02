@@ -6,13 +6,41 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/02 18:12:53 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/02/25 17:42:43 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
 t_chunks	*g_chunks;
+
+static void	add_chunk(size_t size, void *ret)
+{
+	t_chunks	*ptr;
+	t_chunks	*new;
+
+	ptr = g_chunks;
+	while (ptr)
+	{
+		if (ret == ptr->data)
+			return ;
+		ptr = ptr->next;
+	}
+	ptr = g_chunks;
+	new = (t_chunks *)mmap(AL(sizeof(t_chunks)));
+	new->next = NULL;
+	new->size = size;
+	new->free = 0;
+	new->data = ret;
+	if (!ptr)
+		g_chunks = new;
+	else
+	{
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
+	}
+}
 
 static void	presets(void)
 {
