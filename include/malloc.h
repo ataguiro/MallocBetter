@@ -34,7 +34,7 @@
 # define CHS (2 * sizeof(void *) + sizeof(size_t) + sizeof(uint8_t))
 # define ZHS (3 * sizeof(void *) + sizeof(uint64_t))
 
-# define ALIGN(x) (x % 16) ? (x + 16) - (x % 16)  + CHS : x + CHS
+# define ALIGN(x) (x % 16) ? (x + 16) - (x % 16) + CHS : x + CHS
 # define ABS(x) (x < 0) ? -x : x
 
 /*

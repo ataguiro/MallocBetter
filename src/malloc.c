@@ -37,15 +37,36 @@ void		*ft_malloc(size_t size)
 	else
 		ret = allocate_large(size);
 /*
-	t_chunks *ptr;
-
-	ptr = g_chunks;
+	t_zone	*ptr = g_tiny;
+	t_zone	*ptr2 = g_small;
+	t_chunks	*tmp;
+	printf("Printing TINY chunks...\n");
 	while (ptr)
 	{
-		printf("========================\nsize: \033[1m%zu\033[0m\nfree: %s\ndata: %p\n========================\n||||||||||||||||||||||||\n", ptr->size, ptr->free ? "\033[1;32mYES\033[0m" : "\033[1;31mNO\033[0m", ptr->data);
+		tmp = ptr->chunks;
+		printf("cursor: %lld\n", ptr->cursor);
+		while (tmp)
+		{
+			printf("size: %zu\nfree: %hhd\ndata: %p\n---\n", tmp->size, tmp->free, tmp->data);
+			tmp = tmp->next;
+		}
 		ptr = ptr->next;
 	}
-	printf("\n\n\n");*/
+
+printf("Printing SMALL chunks...\n");
+	while (ptr2)
+	{
+		tmp = ptr2->chunks;
+		printf("cursor: %lld\n", ptr2->cursor);
+		while (tmp)
+		{
+			printf("size: %zu\nfree: %hhd\ndata: %p\n---\n", tmp->size, tmp->free, tmp->data);
+			tmp = tmp->next;
+		}
+		ptr2 = ptr2->next;
+	}
+*/
+
 	return (ret);
 }
 
@@ -72,6 +93,7 @@ int             main(void)
 	printf("%s - %s\n", str, str1);
 	printf("page size : %d\n", getpagesize());
 */
+	/*
 	char *p, *p1;
 
 	p = ft_malloc(31);
@@ -79,8 +101,8 @@ int             main(void)
 	memset(p, 'A', 32);
 	printf("p: %s\n", p);
 	memset(p1, 'B', 31);
-	printf("p (after fill): %s\n", p);/*
-	char *s;
+	printf("p (after fill): %s\n", p);*/
+/*	char *s;
 	for (int i = 0; i < 5000; i++)
 	{
 		s = ft_malloc(11);
@@ -93,6 +115,6 @@ int             main(void)
 		s = ft_malloc(SMALL_LIMIT);
 		s[0] = 'A';
 		s[1] = 0;
-	}
-	return (0);*/
+	}*/
+	return (0);
 }
