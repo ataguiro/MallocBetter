@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/02 18:12:53 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/04 18:09:01 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	presets(void)
 {
 	g_tiny = NULL;
 	g_small = NULL;
+	g_large = NULL;
 }
 
 void		*ft_malloc(size_t size)
@@ -36,9 +37,9 @@ void		*ft_malloc(size_t size)
 		ret = get_small(size);
 	else
 		ret = allocate_large(size);
-/*
-	t_zone	*ptr = g_tiny;
-	t_zone	*ptr2 = g_small;
+
+	t_zone		*ptr = g_tiny;
+	t_zone		*ptr2 = g_small;
 	t_chunks	*tmp;
 	printf("Printing TINY chunks...\n");
 	while (ptr)
@@ -65,12 +66,11 @@ printf("Printing SMALL chunks...\n");
 		}
 		ptr2 = ptr2->next;
 	}
-*/
-
+	printf("============================\n\n\n");
 	return (ret);
 }
 
-int             main(void)
+int			main(void)
 {
 	/*char    *str, *str1, *str2;
 	for (int i = 0; i < 300; i++)
@@ -93,15 +93,12 @@ int             main(void)
 	printf("%s - %s\n", str, str1);
 	printf("page size : %d\n", getpagesize());
 */
-	/*
+	
 	char *p, *p1;
 
-	p = ft_malloc(31);
-	p1 = ft_malloc(31);
-	memset(p, 'A', 32);
-	printf("p: %s\n", p);
-	memset(p1, 'B', 31);
-	printf("p (after fill): %s\n", p);*/
+	p = ft_malloc(0);
+	p1 = ft_malloc(12);
+//	show_alloc_mem();
 /*	char *s;
 	for (int i = 0; i < 5000; i++)
 	{

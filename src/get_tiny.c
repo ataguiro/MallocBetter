@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 16:12:29 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/02/25 17:45:33 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/04 17:06:43 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void		add_chunk(void *ret, size_t size)
 	t_chunks	*tmp;
 	t_zone		*ptr;
 
-	new = ret;
+	new = (t_chunks *)ret;
 	new->size = size;
 	new->free = 0;
 	new->data = ret + CHS;

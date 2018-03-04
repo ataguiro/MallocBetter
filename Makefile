@@ -6,7 +6,7 @@
 #    By: ataguiro <ataguiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/15 14:57:28 by ataguiro          #+#    #+#              #
-#    Updated: 2018/02/25 14:19:34 by ataguiro         ###   ########.fr        #
+#    Updated: 2018/03/04 14:53:07 by ataguiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INDEX	:=	1
 
 # ===== Standard =====
 CC		:=	gcc
-CFLAGS	:=	-g -Wall -Wextra -Werror -fsanitize=address
+#CFLAGS	:=	-g -Wall -Wextra -Werror -fsanitize=address
 SRCDIR	:=	src/
 OBJDIR	:=	obj/
 INCDIR	:=	include/
@@ -26,7 +26,8 @@ SRC		:=	$(SRCDIR)malloc.c \
 			$(SRCDIR)pre_allocation.c \
 			$(SRCDIR)get_tiny.c \
 			$(SRCDIR)get_small.c \
-			$(SRCDIR)allocate_large.c
+			$(SRCDIR)allocate_large.c \
+			$(SRCDIR)show_alloc_mem.c
 OBJ		:=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INC		:=	-I./$(INCDIR) -I./$(LIBDIR)$(INCDIR)
 LIBPATH	:=	-L./$(LIBDIR) -lft

@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/02 18:12:54 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/04 17:01:25 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+# include "libft.h"
+
 //toremove
 # include <stdio.h>
 # include <string.h>
@@ -31,11 +33,12 @@
 
 # define COEFF 200
 # define PAGE_SIZE		getpagesize()
-# define CHS (2 * sizeof(void *) + sizeof(size_t) + sizeof(uint8_t))
-# define ZHS (3 * sizeof(void *) + sizeof(uint64_t))
+//# define CHS (2 * sizeof(void *) + sizeof(size_t) + sizeof(uint8_t))
+//# define ZHS (3 * sizeof(void *) + sizeof(uint64_t))
+# define CHS sizeof(t_chunks)
+# define ZHS sizeof(t_zone)
 
 # define ALIGN(x) (x % 16) ? (x + 16) - (x % 16) + CHS : x + CHS
-# define ABS(x) (x < 0) ? -x : x
 
 /*
 **	mmap() call parameters
@@ -94,11 +97,14 @@ typedef struct			s_zone
 
 extern t_zone			*g_tiny;
 extern t_zone			*g_small;
+extern t_chunks			*g_large;
 
 void					ft_free(void *);
 void					pre_allocation(void);
 void					*get_tiny(size_t);
 void					*get_small(size_t);
 void					*allocate_large(size_t);
+void					show_alloc_mem(void);
+
 
 #endif
