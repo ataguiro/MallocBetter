@@ -19,7 +19,7 @@ static void	presets(void)
 	g_large = NULL;
 }
 
-void		*ft_malloc(size_t size)
+void		*malloc(size_t size)
 {
 	void			*ret;
 	static uint8_t	flag = 1;
@@ -30,7 +30,7 @@ void		*ft_malloc(size_t size)
 		flag = 0;
 		presets();
 	}
-	pre_allocation();
+	pre_allocation(size);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)
@@ -38,40 +38,11 @@ void		*ft_malloc(size_t size)
 	else
 		ret = allocate_large(size);
 
-	t_zone		*ptr = g_tiny;
-	t_zone		*ptr2 = g_small;
-	t_chunks	*tmp;
-	printf("Printing TINY chunks...\n");
-	while (ptr)
-	{
-		tmp = ptr->chunks;
-		printf("cursor: %lld\n", ptr->cursor);
-		while (tmp)
-		{
-			printf("size: %zu\nfree: %hhd\ndata: %p\n---\n", tmp->size, tmp->free, tmp->data);
-			tmp = tmp->next;
-		}
-		ptr = ptr->next;
-	}
-
-printf("Printing SMALL chunks...\n");
-	while (ptr2)
-	{
-		tmp = ptr2->chunks;
-		printf("cursor: %lld\n", ptr2->cursor);
-		while (tmp)
-		{
-			printf("size: %zu\nfree: %hhd\ndata: %p\n---\n", tmp->size, tmp->free, tmp->data);
-			tmp = tmp->next;
-		}
-		ptr2 = ptr2->next;
-	}
-	printf("============================\n\n\n");
 	return (ret);
 }
-
+/*
 int			main(void)
-{
+{*/
 	/*char    *str, *str1, *str2;
 	for (int i = 0; i < 300; i++)
 		str = ft_malloc(300);
@@ -93,12 +64,17 @@ int			main(void)
 	printf("%s - %s\n", str, str1);
 	printf("page size : %d\n", getpagesize());
 */
-	
+/*	
 	char *p, *p1;
 
+	p1 = ft_malloc(48);
 	p = ft_malloc(0);
-	p1 = ft_malloc(12);
-//	show_alloc_mem();
+	ft_free(p1);
+	ft_free(p);
+	p = ft_malloc(2);
+	p1 = ft_malloc(700000);
+	ft_free(p1);
+	show_alloc_mem();*/
 /*	char *s;
 	for (int i = 0; i < 5000; i++)
 	{
@@ -112,6 +88,6 @@ int			main(void)
 		s = ft_malloc(SMALL_LIMIT);
 		s[0] = 'A';
 		s[1] = 0;
-	}*/
+	}*//*
 	return (0);
-}
+}*/

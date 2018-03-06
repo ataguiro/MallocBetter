@@ -38,7 +38,7 @@
 # define CHS sizeof(t_chunks)
 # define ZHS sizeof(t_zone)
 
-# define ALIGN(x) (x % 16) ? (x + 16) - (x % 16) + CHS : x + CHS
+# define ALIGN(x) ((x % 16) || !x) ? (x + 16) - (x % 16) + CHS : x + CHS
 
 /*
 **	mmap() call parameters
@@ -99,8 +99,10 @@ extern t_zone			*g_tiny;
 extern t_zone			*g_small;
 extern t_chunks			*g_large;
 
-void					ft_free(void *);
-void					pre_allocation(void);
+void					*malloc(size_t);
+void					free(void *);
+
+void					pre_allocation(size_t size);
 void					*get_tiny(size_t);
 void					*get_small(size_t);
 void					*allocate_large(size_t);

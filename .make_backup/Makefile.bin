@@ -6,22 +6,18 @@
 #    By: ataguiro <ataguiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/15 14:57:28 by ataguiro          #+#    #+#              #
-#    Updated: 2018/02/25 13:37:09 by ataguiro         ###   ########.fr        #
+#    Updated: 2018/03/04 14:53:07 by ataguiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ===== Editable =====
-ifeq ($(HOSTTYPE),)
-	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
-endif
-NAME	:=	libft_malloc_$(HOSTTYPE).so
-LNAME	:=	libft_malloc.so
+NAME	:=	malloc
 INDEX	:=	1
 # ====================
 
 # ===== Standard =====
 CC		:=	gcc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-g -Wall -Wextra -Werror -fsanitize=address
 SRCDIR	:=	src/
 OBJDIR	:=	obj/
 INCDIR	:=	include/
@@ -59,21 +55,21 @@ WHITE		= "\033[0;37m"
 .SILENT:
 
 all: $(NAME)
-	ln -f -s $(NAME) $(LNAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(CFLAGS) -shared $(OBJ) $(LIBDIR)/libft.a -o $@ $(INC)
+	$(CC) $(CFLAGS)  $(OBJ) -o $@ $(LIBPATH) $(LIB) $(INC)
 	echo "\033[1;32m" "\n✓ $@ ok ;)" "\033[0m"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	printf "\r"
 	printf $(BGREEN)"[ compiling $(NAME)... ] "
-	printf "$(shell echo 'scale=2;$(INDEX)/1 * 100' | bc)%%"$(EOC)
+	printf "$(shell echo 'scale=2;$(INDEX)/26 * 100' | bc)%%"$(EOC)
 	$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
 $(CACHEF):
 	test -d $(OBJDIR) || mkdir $(OBJDIR)
+	test -d $(OBJDIR)masters || mkdir $(OBJDIR)masters
 	test -d $(CACHEF) || touch $(CACHEF)
 
 %.c:
@@ -94,8 +90,6 @@ clean:
 fclean: clean
 	make -C $(LIBDIR) fclean
 	rm -f $(NAME)
-	rm -f $(LNAME)
 	printf $(RED)"$(NAME) removed\n"$(EOC)
-	printf $(RED)"$(LNAME) removed\n"$(EOC)
 
 re: fclean all

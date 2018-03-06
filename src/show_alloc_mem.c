@@ -30,8 +30,8 @@ static void	show_tiny(void)
 				addr = tmp->data - CHS;
 				ft_printf("%016p - %016p : %d octets\n", \
 						addr, addr + tmp->size, tmp->size);
-				tmp = tmp->next;
 			}
+			tmp = tmp->next;
 		}
 		ptr = ptr->next;
 	}
@@ -42,7 +42,6 @@ static void	show_small(void)
 	t_zone		*ptr;
 	t_chunks	*tmp;
 	void		*addr;
-	void *addr2;
 
 	ptr = g_small;
 	while (ptr)
@@ -56,8 +55,8 @@ static void	show_small(void)
 				addr = tmp->data - CHS;
 				ft_printf("%016p - %016p : %d octets\n", \
 						addr, addr + tmp->size, tmp->size);
-				tmp = tmp->next;
 			}
+			tmp = tmp->next;
 		}
 		ptr = ptr->next;
 	}

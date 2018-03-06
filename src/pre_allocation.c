@@ -12,6 +12,9 @@
 
 #include "malloc.h"
 
+#define IS_TINY(x) (x <= TINY_LIMIT)
+#define IS_SMALL(x) ((x > TINY_LIMIT) && (x <= SMALL_LIMIT))
+
 t_zone	*g_tiny;
 t_zone	*g_small;
 
@@ -19,12 +22,12 @@ t_zone	*g_small;
 **	Allocates TINY and SMALL zones for futures malloc calls
 */
 
-void	pre_allocation(void)
+void	pre_allocation(size_t size)
 {
 	void	*tiny;
 	void	*small;
 
-	if (!g_tiny)
+	if (!g_tiny && IS_TINY(size))
 	{
 		tiny = mmap(AL(TINY + ZHS));
 		g_tiny = (t_zone *)tiny;
@@ -33,7 +36,7 @@ void	pre_allocation(void)
 		g_tiny->next = NULL;
 		g_tiny->chunks = NULL;
 	}
-	if (!g_small)
+	if (!g_small && IS_SMALL(size))
 	{
 		small = mmap(AL(SMALL + ZHS));
 		g_small = (t_zone *)small;

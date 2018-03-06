@@ -11,17 +11,64 @@
 /* ************************************************************************** */
 
 #include "malloc.h"
+
 #define IS_TINY(x) (x <= TINY_LIMIT)
 #define IS_SMALL(x) ((x > TINY_LIMIT) && (x <= SMALL_LIMIT))
 
-static void	return_pages(void)
+static int	check_and_free(t_chunks *ptr, void *addr)
 {
+	t_chunks	*prev;
+
+	prev = NULL;
+	while (ptr)
+	{
+		if (ptr->data == addr)
+		{
+			if (IS_TINY(ptr->size) || IS_SMALL(ptr->size))
+				ptr->free = 1;
+			else
+			{
+				if (prev)
+					prev->next = ptr->next;
+				else
+					g_large = ptr->next;
+				munmap(ptr->data - CHS, ptr->size);
+			}
+			return (0);
+		}
+		prev = ptr;
+		ptr = ptr->next;
+	}
+	return (1);
 }
 
-void		ft_free(void *ptr)
+static int	check_zone(t_zone *zone, void *ptr)
 {
-	t_zone	*tiny;
-	t_zone	*small;
+	int	ret;
 
+	ret = 1;
+	while (zone)
+	{
+		ret = check_and_free(zone->chunks, ptr);
+		if (!ret)
+			break ;
+		zone = zone->next;
+	}
+	return (ret);
+}
 
+void		free(void *ptr)
+{
+	t_zone	*zone;
+	int		ret;
+
+	zone = g_tiny;
+	ret = check_zone(zone, ptr);
+	if (ret)
+	{
+		zone = g_small;
+		ret = check_zone(zone, ptr);
+	}
+	if (ret)
+		ret = check_and_free(g_large, ptr);
 }
