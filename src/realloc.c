@@ -6,15 +6,15 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 14:02:03 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/07 17:34:24 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/07 18:16:00 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-static int	check_resize(t_chunks *ptr, void *addr, size_t size)
+static size_t	check_resize(t_chunks *ptr, void *addr, size_t size)
 {
-	size_t	max_possible;
+	size_t	diff;
 
 	while (ptr)
 	{
@@ -22,17 +22,21 @@ static int	check_resize(t_chunks *ptr, void *addr, size_t size)
 		{
 			if (ptr->next)
 			{
-				max_possible = (ptr->next->data) - (addr);
-				if (size < max_possible)
+				diff = (ptr->next->data) - (addr);
+				if (size <= diff)
 				{
-
+					diff = ptr->size - size;
+					ptr->size = size;
+					return (diff);
 				}
+				else
+					return (0);
 			}
 		}
 	}
 }
 
-static int	try_to_resize(t_zone *zone, void *ptr, size_t size)
+static int		try_to_resize(t_zone *zone, void *ptr, size_t size)
 {
 	int		ret;
 
@@ -40,10 +44,17 @@ static int	try_to_resize(t_zone *zone, void *ptr, size_t size)
 	while (zone)
 	{
 		ret = check_resize(zone->chunks, ptr, size);
+		if (ret)
+		{
+			zone->cursor += ret;
+			return (0);
+		}
+		zone = zone->next;
 	}
+	return (1);
 }
 
-void		*realloc(void *ptr, size_t size)
+void			*realloc(void *ptr, size_t size)
 {
 	int		ret;
 	t_zone	*zone;
