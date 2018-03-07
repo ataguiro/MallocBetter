@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/04 17:01:25 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:19:52 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 # define AL(x) NULL, x, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0
 
 /*
-**	TINY zone : getpagesize() * 2 (pre-allocated)
-**	SMALL zone : getpagesize() * 4 (pre-allocated)
+**	TINY zone : getpagesize() * 16 (pre-allocated)
+**	SMALL zone : getpagesize() * 128 (pre-allocated)
 **	TINY and SMALL should contain both at least COEFF allocations.
 **	TINY_LIMIT and SMALL_LIMIT are respectively
 **	the max size allocation that'll fit into those zones.

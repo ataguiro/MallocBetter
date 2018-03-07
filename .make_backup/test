@@ -6,37 +6,29 @@
 #    By: ataguiro <ataguiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/15 14:57:28 by ataguiro          #+#    #+#              #
-#    Updated: 2018/03/07 17:12:58 by ataguiro         ###   ########.fr        #
+#    Updated: 2018/03/07 17:05:17 by ataguiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ===== Editable =====
-ifeq ($(HOSTTYPE),)
-	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
-endif
-NAME	:=	libft_malloc_$(HOSTTYPE).so
-LNAME	:=	libft_malloc.so
+NAME	:=	executable
 INDEX	:=	1
 # ====================
 
 # ===== Standard =====
 CC		:=	gcc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-g -Wall -Wextra -Werror -fsanitize=address
 SRCDIR	:=	src/
 OBJDIR	:=	obj/
 INCDIR	:=	include/
 LIBDIR	:=	libft/
-SRC		:=	$(SRCDIR)malloc.c \
-			$(SRCDIR)free.c \
-			$(SRCDIR)pre_allocation.c \
-			$(SRCDIR)get_tiny.c \
-			$(SRCDIR)get_small.c \
-			$(SRCDIR)allocate_large.c \
-			$(SRCDIR)show_alloc_mem.c
+SRC		:=	$(SRCDIR)file1.c \
+			$(SRCDIR)file2.c \
+			$(SRCDIR)file3.c
 OBJ		:=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INC		:=	-I./$(INCDIR) -I./$(LIBDIR)$(INCDIR)
 LIBPATH	:=	-L./$(LIBDIR) -lft
-CACHEF	:=	.cache_exists
+CACHEF	:=	.cachename
 # ====================
 
 # ====== Colors ======
@@ -59,17 +51,16 @@ WHITE		= "\033[0;37m"
 .SILENT:
 
 all: $(NAME)
-	ln -f -s $(NAME) $(LNAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(CFLAGS) -shared $(OBJ) $(LIBDIR)/libft.a -o $@ $(INC)
+	$(CC) $(CFLAGS)  $(OBJ) -o $@ $(LIBPATH) $(LIB) $(INC)
 	echo "\033[1;32m" "\n✓ $@ ok ;)" "\033[0m"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	printf "\r"
 	printf $(BGREEN)"[ compiling $(NAME)... ] "
-	printf "$(shell echo 'scale=2;$(INDEX)/1 * 100' | bc)%%"$(EOC)
+	printf "$(shell echo 'scale=2;$(INDEX)/3 * 100' | bc)%%"$(EOC)
 	$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
 $(CACHEF):
@@ -94,8 +85,6 @@ clean:
 fclean: clean
 	make -C $(LIBDIR) fclean
 	rm -f $(NAME)
-	rm -f $(LNAME)
 	printf $(RED)"$(NAME) removed\n"$(EOC)
-	printf $(RED)"$(LNAME) removed\n"$(EOC)
 
 re: fclean all
