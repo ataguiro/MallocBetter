@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/08 13:31:02 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:14:53 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define CHS sizeof(t_chunks)
 # define ZHS sizeof(t_zone)
 
-# define ALIGN(x) ((x % 16) || !x) ? (x + 16) - (x % 16) + CHS : x + CHS
+# define ALIGN_MOD(x) ((x % 16) || !x) ? (x + 16) - (x % 16) : x
+# define ALIGN(x) ALIGN_MOD(x + CHS)
 
 /*
 **	mmap() call parameters
