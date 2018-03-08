@@ -6,7 +6,7 @@
 #    By: ataguiro <ataguiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/15 14:57:28 by ataguiro          #+#    #+#              #
-#    Updated: 2018/03/07 17:12:58 by ataguiro         ###   ########.fr        #
+#    Updated: 2018/03/08 13:33:25 by ataguiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,14 @@ INDEX	:=	1
 
 # ===== Standard =====
 CC		:=	gcc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra -Werror -g -fsanitize=address
 SRCDIR	:=	src/
 OBJDIR	:=	obj/
 INCDIR	:=	include/
 LIBDIR	:=	libft/
 SRC		:=	$(SRCDIR)malloc.c \
 			$(SRCDIR)free.c \
+			$(SRCDIR)realloc.c \
 			$(SRCDIR)pre_allocation.c \
 			$(SRCDIR)get_tiny.c \
 			$(SRCDIR)get_small.c \

@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/07 18:16:03 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/08 13:31:02 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ extern t_zone			*g_small;
 extern t_chunks			*g_large;
 
 void					*malloc(size_t);
+void					*realloc(void *, size_t);
 void					free(void *);
 
 void					pre_allocation(size_t size);
