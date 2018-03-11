@@ -6,13 +6,13 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/11 15:47:20 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/11 18:04:47 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-pthread_mutex_t	g_mutex;
+pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void	presets(void)
 {

@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/11 15:43:44 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/11 18:08:59 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,12 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-#include <pthread.h>
+# include <pthread.h>
 
 # include "libft.h"
 
-//toremove
-# include <stdio.h>
-# include <string.h>
-//toremove
-
 # define COEFF 200
 # define PAGE_SIZE		getpagesize()
-//# define CHS (2 * sizeof(void *) + sizeof(size_t) + sizeof(uint8_t))
-//# define ZHS (3 * sizeof(void *) + sizeof(uint64_t))
 # define CHS sizeof(t_chunks)
 # define ZHS sizeof(t_zone)
 
@@ -77,7 +70,7 @@
 **	on all malloc'd chunks
 **	~ 49 bytes == 392 bits
 */
- 
+
 typedef struct			s_chunks
 {
 	struct s_chunks		*next;
@@ -103,15 +96,14 @@ extern t_zone			*g_small;
 extern t_chunks			*g_large;
 extern pthread_mutex_t	g_mutex;
 
-void					*malloc(size_t);
-void					*realloc(void *, size_t);
-void					free(void *);
+void					*malloc(size_t size);
+void					*realloc(void *ptr, size_t size);
+void					free(void *ptr);
 
 void					pre_allocation(size_t size);
-void					*get_tiny(size_t);
-void					*get_small(size_t);
-void					*allocate_large(size_t);
+void					*get_tiny(size_t size);
+void					*get_small(size_t size);
+void					*allocate_large(size_t size);
 void					show_alloc_mem(void);
-
 
 #endif
