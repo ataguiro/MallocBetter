@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/08 15:14:53 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/11 15:43:44 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdint.h>
 # include <unistd.h>
 # include <fcntl.h>
+
+#include <pthread.h>
 
 # include "libft.h"
 
@@ -99,6 +101,7 @@ typedef struct			s_zone
 extern t_zone			*g_tiny;
 extern t_zone			*g_small;
 extern t_chunks			*g_large;
+extern pthread_mutex_t	g_mutex;
 
 void					*malloc(size_t);
 void					*realloc(void *, size_t);

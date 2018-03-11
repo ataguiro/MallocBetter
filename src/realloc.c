@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 14:02:03 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/08 15:13:59 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/11 15:50:05 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ void			*realloc(void *ptr, size_t size)
 	t_zone	*zone;
 	void	*new_zone;
 
+	pthread_mutex_lock(&g_mutex);
 	zone = g_tiny;
 	new_zone = NULL;
 	if (!ptr || !size)
 	{
 		free(ptr);
+		pthread_mutex_lock(&g_mutex);
 		return (malloc(size));
 	}
 	ret = try_to_resize(zone, ptr, size);
@@ -76,8 +78,12 @@ void			*realloc(void *ptr, size_t size)
 		new_zone = malloc(size);
 		ft_memcpy(new_zone, ptr, size);
 		free(ptr);
+		pthread_mutex_lock(&g_mutex);
 		return (new_zone);
 	}
 	else
+	{
+		pthread_mutex_lock(&g_mutex);
 		return (ptr);
+	}
 }

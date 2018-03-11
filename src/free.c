@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 14:03:58 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/07 18:16:03 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/11 15:50:14 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		free(void *ptr)
 	t_zone	*zone;
 	int		ret;
 
+	pthread_mutex_lock(&g_mutex);
 	zone = g_tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)
@@ -71,4 +72,5 @@ void		free(void *ptr)
 	}
 	if (ret)
 		ret = check_and_free(g_large, ptr);
+	pthread_mutex_unlock(&g_mutex);
 }
