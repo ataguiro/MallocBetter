@@ -52,6 +52,13 @@ static int		try_to_resize(t_zone *zone, void *ptr, size_t size)
 	return (1);
 }
 
+static void		*unlock_and_return(void *to_free, void *addr)
+{
+	free(to_free);
+	pthread_mutex_unlock(&g_mutex);
+	return (addr);
+}
+
 void			*realloc(void *ptr, size_t size)
 {
 	int		ret;
@@ -59,31 +66,22 @@ void			*realloc(void *ptr, size_t size)
 	void	*new_zone;
 
 	pthread_mutex_lock(&g_mutex);
-	zone = g_tiny;
+	zone = g_alloc.tiny;
 	new_zone = NULL;
 	if (!ptr || !size)
-	{
-		free(ptr);
-		pthread_mutex_lock(&g_mutex);
-		return (malloc(size));
-	}
+		return (unlock_and_return(ptr, malloc(size)));
 	ret = try_to_resize(zone, ptr, size);
 	if (ret)
 	{
-		zone = g_small;
+		zone = g_alloc.small;
 		ret = try_to_resize(zone, ptr, size);
 	}
 	if (ret)
 	{
 		new_zone = malloc(size);
 		ft_memcpy(new_zone, ptr, size);
-		free(ptr);
-		pthread_mutex_lock(&g_mutex);
-		return (new_zone);
+		return (unlock_and_return(ptr, new_zone));
 	}
 	else
-	{
-		pthread_mutex_lock(&g_mutex);
-		return (ptr);
-	}
+		return (unlock_and_return(NULL, ptr));
 }

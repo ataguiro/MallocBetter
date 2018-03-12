@@ -31,7 +31,7 @@ static int	check_and_free(t_chunks *ptr, void *addr)
 				if (prev)
 					prev->next = ptr->next;
 				else
-					g_large = ptr->next;
+					g_alloc.large = ptr->next;
 				munmap(ptr->data - CHS, ptr->size);
 			}
 			return (0);
@@ -63,14 +63,14 @@ void		free(void *ptr)
 	int		ret;
 
 	pthread_mutex_lock(&g_mutex);
-	zone = g_tiny;
+	zone = g_alloc.tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)
 	{
-		zone = g_small;
+		zone = g_alloc.small;
 		ret = check_zone(zone, ptr);
 	}
 	if (ret)
-		ret = check_and_free(g_large, ptr);
+		ret = check_and_free(g_alloc.large, ptr);
 	pthread_mutex_unlock(&g_mutex);
 }

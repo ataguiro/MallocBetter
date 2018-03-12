@@ -42,7 +42,7 @@ static void		*search_free_slot(size_t size)
 	t_chunks	*chunks_ptr;
 	void		*ret;
 
-	zone_ptr = g_small;
+	zone_ptr = g_alloc.small;
 	while (zone_ptr)
 	{
 		chunks_ptr = zone_ptr->chunks;
@@ -60,7 +60,7 @@ static void		append_zone(void)
 	t_zone	*ptr;
 	void	*new_zone;
 
-	ptr = g_small;
+	ptr = g_alloc.small;
 	while (ptr->next)
 		ptr = ptr->next;
 	new_zone = mmap(AL(SMALL + ZHS));
@@ -82,7 +82,7 @@ static void		add_chunk(void *ret, size_t size)
 	new->size = size;
 	new->free = 0;
 	new->data = ret + CHS;
-	ptr = g_small;
+	ptr = g_alloc.small;
 	while (ptr->next)
 		ptr = ptr->next;
 	if (!ptr->chunks)
@@ -101,7 +101,7 @@ void			*get_small(size_t size)
 	void	*ret;
 	t_zone	*ptr;
 
-	ptr = g_small;
+	ptr = g_alloc.small;
 	if ((ret = search_free_slot(size)))
 		return (ret);
 	while (ptr)

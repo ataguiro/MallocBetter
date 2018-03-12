@@ -13,26 +13,14 @@
 #include "malloc.h"
 
 pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-static void	presets(void)
-{
-	g_tiny = NULL;
-	g_small = NULL;
-	g_large = NULL;
-}
+t_alloc			g_alloc = {NULL, NULL, NULL};
 
 void		*malloc(size_t size)
 {
 	void			*ret;
-	static uint8_t	flag = 1;
 
 	pthread_mutex_lock(&g_mutex);
 	size = ALIGN(size);
-	if (flag)
-	{
-		flag = 0;
-		presets();
-	}
 	pre_allocation(size);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);

@@ -91,9 +91,14 @@ typedef struct			s_zone
 	void				*zone;
 }						t_zone;
 
-extern t_zone			*g_tiny;
-extern t_zone			*g_small;
-extern t_chunks			*g_large;
+typedef struct			s_alloc
+{
+	t_zone				*tiny;
+	t_zone				*small;
+	t_chunks			*large;
+}						t_alloc;
+
+extern t_alloc			g_alloc;
 extern pthread_mutex_t	g_mutex;
 
 void					*malloc(size_t size);

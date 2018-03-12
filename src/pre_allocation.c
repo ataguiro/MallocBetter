@@ -15,9 +15,6 @@
 #define IS_TINY(x) (x <= TINY_LIMIT)
 #define IS_SMALL(x) ((x > TINY_LIMIT) && (x <= SMALL_LIMIT))
 
-t_zone	*g_tiny;
-t_zone	*g_small;
-
 /*
 **	Allocates TINY and SMALL zones for futures malloc calls
 */
@@ -27,22 +24,22 @@ void	pre_allocation(size_t size)
 	void	*tiny;
 	void	*small;
 
-	if (!g_tiny && IS_TINY(size))
+	if (!g_alloc.tiny && IS_TINY(size))
 	{
 		tiny = mmap(AL(TINY + ZHS));
-		g_tiny = (t_zone *)tiny;
-		g_tiny->zone = tiny + ZHS;
-		g_tiny->cursor = ZHS;
-		g_tiny->next = NULL;
-		g_tiny->chunks = NULL;
+		g_alloc.tiny = (t_zone *)tiny;
+		g_alloc.tiny->zone = tiny + ZHS;
+		g_alloc.tiny->cursor = ZHS;
+		g_alloc.tiny->next = NULL;
+		g_alloc.tiny->chunks = NULL;
 	}
-	if (!g_small && IS_SMALL(size))
+	if (!g_alloc.small && IS_SMALL(size))
 	{
 		small = mmap(AL(SMALL + ZHS));
-		g_small = (t_zone *)small;
-		g_small->zone = small + ZHS;
-		g_small->cursor = ZHS;
-		g_small->next = NULL;
-		g_small->chunks = NULL;
+		g_alloc.small = (t_zone *)small;
+		g_alloc.small->zone = small + ZHS;
+		g_alloc.small->cursor = ZHS;
+		g_alloc.small->next = NULL;
+		g_alloc.small->chunks = NULL;
 	}
 }

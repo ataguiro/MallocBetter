@@ -12,8 +12,6 @@
 
 #include "malloc.h"
 
-t_chunks	*g_large;
-
 void	*allocate_large(size_t size)
 {
 	void		*ret;
@@ -26,9 +24,9 @@ void	*allocate_large(size_t size)
 	new->size = size;
 	new->free = 0;
 	new->data = ret + CHS;
-	ptr = g_large;
+	ptr = g_alloc.large;
 	if (!ptr)
-		g_large = new;
+		g_alloc.large = new;
 	else
 	{
 		while (ptr->next)
