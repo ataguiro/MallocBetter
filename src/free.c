@@ -57,13 +57,30 @@ static int	check_zone(t_zone *zone, void *ptr)
 	return (ret);
 }
 
+void		safe_free(void *ptr)
+{
+	t_zone	*zone;
+	int		ret;
+
+//	mlog(0, FREE, ptr);
+	zone = g_alloc.tiny;
+	ret = check_zone(zone, ptr);
+	if (ret)
+	{
+		zone = g_alloc.small;
+		ret = check_zone(zone, ptr);
+	}
+	if (ret)
+		ret = check_and_free(g_alloc.large, ptr);
+}
+
 void		free(void *ptr)
 {
 	t_zone	*zone;
 	int		ret;
 
 	pthread_mutex_lock(&g_mutex);
-	mlog(0, FREE, ptr);
+//	mlog(0, FREE, ptr);
 	zone = g_alloc.tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)

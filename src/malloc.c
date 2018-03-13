@@ -15,6 +15,23 @@
 pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 t_alloc			g_alloc = {NULL, NULL, NULL};
 
+
+void		*safe_malloc(size_t size)
+{
+	void			*ret;
+
+	size = ALIGN(size);
+	pre_allocation(size);
+//	mlog(size, MALLOC, NULL);
+	if (size <= TINY_LIMIT)
+		ret = get_tiny(size);
+	else if (size <= SMALL_LIMIT)
+		ret = get_small(size);
+	else
+		ret = allocate_large(size);
+	return (ret);
+}
+
 void		*malloc(size_t size)
 {
 	void			*ret;
@@ -22,7 +39,7 @@ void		*malloc(size_t size)
 	pthread_mutex_lock(&g_mutex);
 	size = ALIGN(size);
 	pre_allocation(size);
-	mlog(size, MALLOC, NULL);
+//	mlog(size, MALLOC, NULL);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)
