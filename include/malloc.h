@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/11 18:08:59 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:55:03 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@
 # define WARNING		0b10
 # define CRITICAL		0b11
 
+#define MALLOC	1
+#define FREE	2
+#define REALLOC	3
+
 /*
 **	s_chunks is a double linked list containing information
 **	on all malloc'd chunks
@@ -110,5 +114,7 @@ void					*get_tiny(size_t size);
 void					*get_small(size_t size);
 void					*allocate_large(size_t size);
 void					show_alloc_mem(void);
+
+void					mlog(size_t size, uint8_t type, void *addr);
 
 #endif

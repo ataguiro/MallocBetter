@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 14:02:03 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/12 15:31:40 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:59:16 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void			*realloc(void *ptr, size_t size)
 	void	*new_zone;
 
 	pthread_mutex_lock(&g_mutex);
+	mlog(size, REALLOC, ptr);
 	zone = g_alloc.tiny;
 	new_zone = NULL;
 	if (!ptr || !size)

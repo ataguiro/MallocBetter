@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/11 18:04:47 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/13 17:27:29 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		*malloc(size_t size)
 	pthread_mutex_lock(&g_mutex);
 	size = ALIGN(size);
 	pre_allocation(size);
+	mlog(size, MALLOC, NULL);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)

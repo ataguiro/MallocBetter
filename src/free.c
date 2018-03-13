@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/25 14:03:58 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/11 18:04:55 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:58:20 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		free(void *ptr)
 	int		ret;
 
 	pthread_mutex_lock(&g_mutex);
+	mlog(0, FREE, ptr);
 	zone = g_alloc.tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)
