@@ -18,38 +18,50 @@ static int	check_vars(void)
 	char		*ptr;
 	int			i;
 
-	i = 0;
-	while (environ[i])
+	i = -1;
+	while (environ[++i])
 	{
-		printf("%s\n", environ[i]);
 		ptr = ft_strchr(environ[i], '=');
 		ptr ? *ptr = 0 : 0;
-		if (ft_strcmp(environ[i], "DMALLOC_PRINT_LOGS"))
+		if (!ft_strcmp(environ[i], "DMALLOC_LOGS"))
 			return (1);
 	}
-	return (open(LOGFILE, O_WRONLY | O_CREAT | O_TRUNC));
+	return (open(LOGFILE, O_WRONLY | O_CREAT | O_TRUNC, 0644));
+}
+
+static char	*get_type(int fd)
+{
+	time_t t;
+
+	t = time(NULL);
+	if (fd != 1)
+		return ("History");
+	else
+		return ("Debug");
+	return (NULL);
 }
 
 void		mlog(size_t size, uint8_t type, void *addr)
 {
-	int		fd;
+	static int		fd = -1;
+	char	*s;
 
-	printf("LOL\n");
-	fd = check_vars();
-	fd = (fd == -1) ? 1 : fd;
+	fd = (-1 == fd) ? check_vars() : fd;
+	fd = (-1 == fd) ? 1 : fd;
+	s = get_type(fd);
 	if (type == MALLOC)
 	{
-		ft_dprintf(fd, "[%s] Initiated MALLOC of %lu bytes.\n", \
+		ft_dprintf(fd, "%s: [%s] Initiated MALLOC of %lu bytes.\n", s, \
 				size ? "INFO" : "WARNING", size);
 	}
 	else if (type == FREE)
 	{
-		ft_dprintf(fd, "[%s] Initiated FREE of address %p.\n", \
+		ft_dprintf(fd, "%s: [%s] Initiated FREE of address %p.\n", s, \
 				addr ? "INFO" : "CRITICAL", addr);
 	}
 	else if (type == REALLOC)
 	{
-		ft_dprintf(fd, "[%s] Initiated REALLOC of zone %p to %lu bytes.\n", \
-				addr ? "INFO" : "CRITICAL", addr, size);
+		ft_dprintf(fd, "%s: [%s] Initiated REALLOC of zone %p to %lu bytes.\n", \
+				s, addr ? "INFO" : "CRITICAL", addr, size);
 	}
 }

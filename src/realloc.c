@@ -75,7 +75,7 @@ void			*realloc(void *ptr, size_t size)
 
 	old_size = size;
 	pthread_mutex_lock(&g_mutex);
-	//mlog(size, REALLOC, ptr);
+	mlog(size, REALLOC, ptr);
 	new_zone = NULL;
 	if (!ptr || !size)
 		return (unlock_and_return(ptr, safe_malloc(size)));

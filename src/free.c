@@ -62,7 +62,7 @@ void		safe_free(void *ptr)
 	t_zone	*zone;
 	int		ret;
 
-//	mlog(0, FREE, ptr);
+	mlog(0, FREE, ptr);
 	zone = g_alloc.tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)
@@ -80,7 +80,7 @@ void		free(void *ptr)
 	int		ret;
 
 	pthread_mutex_lock(&g_mutex);
-//	mlog(0, FREE, ptr);
+	mlog(0, FREE, ptr);
 	zone = g_alloc.tiny;
 	ret = check_zone(zone, ptr);
 	if (ret)

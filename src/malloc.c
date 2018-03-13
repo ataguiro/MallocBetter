@@ -22,7 +22,7 @@ void		*safe_malloc(size_t size)
 
 	size = ALIGN(size);
 	pre_allocation(size);
-//	mlog(size, MALLOC, NULL);
+	mlog(size, MALLOC, NULL);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)
@@ -39,7 +39,7 @@ void		*malloc(size_t size)
 	pthread_mutex_lock(&g_mutex);
 	size = ALIGN(size);
 	pre_allocation(size);
-//	mlog(size, MALLOC, NULL);
+	mlog(size, MALLOC, NULL);
 	if (size <= TINY_LIMIT)
 		ret = get_tiny(size);
 	else if (size <= SMALL_LIMIT)
