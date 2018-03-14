@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/13 16:55:03 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 13:58:59 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ extern t_alloc			g_alloc;
 extern pthread_mutex_t	g_mutex;
 
 void					*malloc(size_t size);
+void					*calloc(size_t nelem, size_t size);
 void					*realloc(void *ptr, size_t size);
+void					*reallocf(void *ptr, size_t size);
 void					free(void *ptr);
 
 /*
@@ -121,6 +123,7 @@ void					*get_tiny(size_t size);
 void					*get_small(size_t size);
 void					*allocate_large(size_t size);
 void					show_alloc_mem(void);
+void					show_alloc_mem_ex(void);
 
 void					mlog(size_t size, uint8_t type, void *addr);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_alloc_mem.c                                   :+:      :+:    :+:   */
+/*   show_alloc_mem_ex.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 13:04:28 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/04 17:06:24 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:08:35 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	show_tiny(void)
 				addr = tmp->data - CHS;
 				ft_printf("%016p - %016p : %d octets\n", \
 						addr, addr + tmp->size, tmp->size);
+				ft_print_memory(addr, tmp->size);
 			}
 			tmp = tmp->next;
 		}
@@ -55,6 +56,7 @@ static void	show_small(void)
 				addr = tmp->data - CHS;
 				ft_printf("%016p - %016p : %d octets\n", \
 						addr, addr + tmp->size, tmp->size);
+				ft_print_memory(addr, tmp->size);
 			}
 			tmp = tmp->next;
 		}
@@ -75,11 +77,12 @@ static void	show_large(void)
 		addr = ptr->data - CHS;
 		ft_printf("%016p - %016p : %d octets\n", \
 				addr, addr + ptr->size, ptr->size);
+		ft_print_memory(addr, ptr->size);
 		ptr = ptr->next;
 	}
 }
 
-void	show_alloc_mem(void)
+void	show_alloc_mem_ex(void)
 {
 	show_tiny();
 	show_small();
