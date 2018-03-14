@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 14:02:03 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/13 16:59:16 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:21:57 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void		*unlock_and_return(void *to_free, void *addr)
 
 void			*realloc(void *ptr, size_t size)
 {
-	size_t		old_size;
+	size_t	old_size;
 	void	*new_zone;
 	int		ret;
 

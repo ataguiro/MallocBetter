@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:01:10 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/14 14:05:26 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:19:59 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define C 16
 #endif
 
-
 static void	print_ascii(void *ptr, size_t size, size_t i)
 {
 	size_t	j;
@@ -24,7 +23,7 @@ static void	print_ascii(void *ptr, size_t size, size_t i)
 	j = i - (C - 1);
 	while (j <= i)
 	{
-		if(j >= size)
+		if (j >= size)
 			ft_putchar(' ');
 		else if (ft_isprint(((char *)ptr)[j]) && (((char *)ptr)[j] != '\n'))
 			ft_putchar(0xFF & ((char *)ptr)[j]);

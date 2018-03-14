@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 13:04:28 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/04 17:06:24 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:22:22 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	show_large(void)
 	}
 }
 
-void	show_alloc_mem(void)
+void		show_alloc_mem(void)
 {
 	show_tiny();
 	show_small();

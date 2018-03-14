@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/14 13:58:59 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:20:21 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@
 # define WARNING		0b10
 # define CRITICAL		0b11
 
-#define MALLOC	1
-#define FREE	2
-#define REALLOC	3
+# define MALLOC		1
+# define FREE		2
+# define REALLOC	3
 
 /*
 **	s_chunks is a double linked list containing information

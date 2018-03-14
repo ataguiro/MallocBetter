@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:22:19 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/13 17:27:29 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:21:26 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 pthread_mutex_t	g_mutex = PTHREAD_MUTEX_INITIALIZER;
 t_alloc			g_alloc = {NULL, NULL, NULL};
-
 
 void		*safe_malloc(size_t size)
 {
