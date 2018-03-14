@@ -1,0 +1,11 @@
+Bonus list:
+
+- Best-fit optimized allocation algorithm
+- Headers for allocated chunks
+- Implementation of calloc
+- Implementation of reallocf
+- Hex dump with show_alloc_mem_ex()
+- The program is thread safe thanks to the g_mutex lock and unlock
+- Logging of allocation history (mallocs, frees, reallocs)
+- Ability to set DMALLOC_LOGS environment to print loggings on standart input
+- Defragmentation of memory when TINY or SMALL is fully freed (kinda half defrag)
