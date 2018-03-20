@@ -149,7 +149,7 @@ $(OBJ_PATH)%.o : $(SRC_PATH)%.c
 	@$(CC) $(INCLUDE_PATH) $(CFLAGS) -c $< -o $@
 	@printf "\r"
 	@printf "\033[1;32m[ compiling Libft... ] "
-	@printf "$(shell echo 'scale=2;$(INDEX)/108 * 100' | bc)%%\033[0m"
+	@printf "$(shell echo 'scale=2;$(INDEX)/109 * 100' | bc)%%\033[0m"
 	$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
 clean:
