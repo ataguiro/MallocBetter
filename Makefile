@@ -6,7 +6,7 @@
 #    By: ataguiro <ataguiro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/15 14:57:28 by ataguiro          #+#    #+#              #
-#    Updated: 2018/03/14 13:54:11 by ataguiro         ###   ########.fr        #
+#    Updated: 2018/03/24 12:52:25 by ataguiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,15 +29,15 @@ LIBDIR	:=	libft/
 SRC		:=	$(SRCDIR)malloc.c \
 			$(SRCDIR)free.c \
 			$(SRCDIR)realloc.c \
-			$(SRCDIR)reallocf.c \
-			$(SRCDIR)calloc.c \
 			$(SRCDIR)pre_allocation.c \
 			$(SRCDIR)get_tiny.c \
 			$(SRCDIR)get_small.c \
 			$(SRCDIR)allocate_large.c \
 			$(SRCDIR)show_alloc_mem.c \
 			$(SRCDIR)show_alloc_mem_ex.c \
-			$(SRCDIR)log.c
+			$(SRCDIR)log.c \
+			$(SRCDIR)reallocf.c \
+			$(SRCDIR)calloc.c
 OBJ		:=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 INC		:=	-I./$(INCDIR) -I./$(LIBDIR)$(INCDIR)
 LIBPATH	:=	-L./$(LIBDIR) -lft
