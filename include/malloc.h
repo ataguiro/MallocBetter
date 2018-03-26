@@ -6,7 +6,7 @@
 /*   By: ataguiro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:30:15 by ataguiro          #+#    #+#             */
-/*   Updated: 2018/03/25 14:15:51 by ataguiro         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:17:03 by ataguiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@
 
 typedef struct			s_chunks
 {
+	size_t				checksum_begin;
 	struct s_chunks		*next;
 	size_t				size;
 	uint8_t				free;
 	void				*data;
+	size_t				checksum_end;
 }						t_chunks;
 
 /*
@@ -126,5 +128,11 @@ void					show_alloc_mem(void);
 void					show_alloc_mem_ex(void);
 
 void					mlog(size_t size, uint8_t type, void *addr);
+
+/*
+**	Hash function
+*/
+
+size_t					tl_hash(void *ptr, size_t size);
 
 #endif
